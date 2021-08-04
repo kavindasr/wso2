@@ -1,42 +1,42 @@
 server {
-	listen 80;
-	listen [::]:80;
+        listen 80;
+        listen [::]:80;
 
-	server_name lt-2021-057.ml;
+        server_name lt-2021-057.ml;
 
-	return 301 https://$host$request_uri;
+        return 301 https://$host$request_uri;
 
 }
 
 
 server {
 
-	root /var/www/html;
-	index index.html index.nginx-debian.html secret.html;
+        root /var/www/html;
+        index index.html index.nginx-debian.html secret.html;
 
-	listen [::]:443 ssl ipv6only=on; # managed by Certbot
-	listen 443 ssl; # managed by Certbot
-	ssl_certificate /etc/letsencrypt/live/lt-2021-031.ml/fullchain.pem; # managed by Certbot
-	ssl_certificate_key /etc/letsencrypt/live/lt-2021-031.ml/privkey.pem; # managed by Certbot
-	include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-	ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+        listen [::]:443 ssl ipv6only=on; # managed by Certbot
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/lt-2021-057.ml/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/lt-2021-057.ml/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-	server_name lt-2021-031.ml; # managed by Certbot
+        server_name lt-2021-057.ml; # managed by Certbot
 
 
-	location / {
-		proxy_pass http://localhost:8081;
-	}
+        location / {
+                proxy_pass http://localhost:8081;
+        }
 
-	location /web0031{
-		return 200 'Student ID: 31';
-		add_header Content-Type text/plain;
-	}
+        location /web0057{
+                return 200 'Student ID: 57';
+                add_header Content-Type text/plain;
+        }
 
-	location /secret{
-		try_files $uri $uri/ =404;
-		auth_basic "Restricted Content";
-		auth_basic_user_file /etc/nginx/.htpasswd;
-	}	
+        location /secret{
+                try_files $uri $uri/ =404;
+                auth_basic "Restricted Content";
+                auth_basic_user_file /etc/nginx/.htpasswd;
+        }       
 
 }
